@@ -12,6 +12,8 @@ import { CurrentValueTableComponent } from './current-value-table/current-value-
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import { SignInComponent } from './sign-in/sign-in.component';
+import {HttpClientModule} from "@angular/common/http";
+import {TableModule} from "primeng/table";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { SignInComponent } from './sign-in/sign-in.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
