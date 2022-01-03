@@ -14,6 +14,11 @@ import {MatButtonModule} from "@angular/material/button";
 import { SignInComponent } from './sign-in/sign-in.component';
 import {HttpClientModule} from "@angular/common/http";
 import {TableModule} from "primeng/table";
+import { SignUpComponent } from './sign-up/sign-up.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {InputTextModule} from "primeng/inputtext";
+import { ArchivalDataComponent } from './archival-data/archival-data.component';
+import {ButtonModule} from "primeng/button";
 
 @NgModule({
   declarations: [
@@ -22,7 +27,9 @@ import {TableModule} from "primeng/table";
     NavbarComponent,
     FooterComponent,
     CurrentValueTableComponent,
-    SignInComponent
+    SignInComponent,
+    SignUpComponent,
+    ArchivalDataComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +39,10 @@ import {TableModule} from "primeng/table";
     MatIconModule,
     MatButtonModule,
     HttpClientModule,
-    TableModule
+    TableModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    ButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
