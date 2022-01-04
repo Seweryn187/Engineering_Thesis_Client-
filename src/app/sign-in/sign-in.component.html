@@ -1,1 +1,22 @@
-<p>sign-in works!</p>
+<div class="sign-in-container">
+  <label class="border-label" for="border">
+    <h1>Sign in form</h1>
+  </label>
+  <div id="border" class="sign-in-border">
+    <form [formGroup]="signInForm">
+      <div class="grid">
+        <div class="col-6 ml-6">
+          <label class="input-label" for="login">Login</label>
+          <input id="login" type="login" aria-describedby="login" placeholder="Login" pInputText />
+        </div>
+        <div class="col-5">
+          <label class="input-label" for="password">Password</label>
+          <input id="password" type="password" aria-describedby="password" placeholder="Password" pInputText />
+        </div>
+        <div class="col-11 mt-3 text-right">
+          <p-button label="Sign In" ></p-button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

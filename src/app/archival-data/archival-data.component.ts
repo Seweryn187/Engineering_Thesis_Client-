@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArchivalDataComponent implements OnInit {
 
+  chartData: any;
+  chartOptions: any;
+
   constructor() { }
 
   ngOnInit(): void {

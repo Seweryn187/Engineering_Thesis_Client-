@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-sign-in',
@@ -6,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sign-in.component.sass']
 })
 export class SignInComponent implements OnInit {
+  signInForm = new FormGroup({
+    login: new FormControl(''),
+    password: new FormControl('')
+  });
 
   constructor() { }
 

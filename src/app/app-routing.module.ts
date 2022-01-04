@@ -5,13 +5,15 @@ import {SignInComponent} from "./sign-in/sign-in.component";
 import {CurrentValueTableComponent} from "./current-value-table/current-value-table.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {ArchivalDataComponent} from "./archival-data/archival-data.component";
+import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'home/sign-in', component: SignInComponent },
   { path: 'home/current-value-table', component: CurrentValueTableComponent },
   { path: 'home/sign-up', component: SignUpComponent},
-  { path: 'home/archival-data', component: ArchivalDataComponent}
+  { path: 'home/archival-data/:abbr', component: ArchivalDataComponent},
+  { path: '**', component: NotFoundPageComponent}
 ];
 
 @NgModule({

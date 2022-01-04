@@ -6,24 +6,24 @@
     <form [formGroup]="signUpForm">
         <div class="grid">
           <div class="col-6 ml-6">
-            <label for="name">Name</label>
+            <label class="input-label" for="name">Name</label>
             <input id="name" type="name" aria-describedby="name" placeholder="Name" pInputText />
           </div>
           <div class="col-3">
-            <label for="surname">Surname</label>
+            <label class="input-label" for="surname">Surname</label>
             <input id="surname" type="surname" aria-describedby="surname" placeholder="Surname" pInputText />
           </div>
           <div class="col-6 ml-6 mt-4">
-            <label for="login">Login</label>
+            <label class="input-label" for="login">Login</label>
             <input id="login" type="login" aria-describedby="login" placeholder="Login" pInputText />
           </div>
           <div class="col-4 mt-4">
-            <label for="password">Password</label>
+            <label class="input-label" for="password">Password</label>
             <input id="password" type="password" aria-describedby="password" placeholder="Password" pInputText />
           </div>
           <div class="col-3"></div>
           <div class="col-4 ml-6 mt-4">
-            <label for="email">E-mail</label>
+            <label class="input-label" for="email">E-mail</label>
             <input id="email" type="email" aria-describedby="email" placeholder="E-mail" pInputText />
           </div>
           <div class="col-7"></div>
@@ -35,7 +35,7 @@
   </div>
   <div class="grid">
     <div class="col mt-1">
-      <h3>If you have account <a class="home-navbar-link" routerLink="/home/sign-in"> click here</a> to login</h3>
+      <h3 class="sign-in-link">If you have account <a class="home-navbar-link" routerLink="/home/sign-in"> click here</a> to login</h3>
     </div>
   </div>
 </div>

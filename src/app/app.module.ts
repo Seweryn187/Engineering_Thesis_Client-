@@ -19,6 +19,8 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import { ArchivalDataComponent } from './archival-data/archival-data.component';
 import {ButtonModule} from "primeng/button";
+import {ChartModule} from "primeng/chart";
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import {ButtonModule} from "primeng/button";
     CurrentValueTableComponent,
     SignInComponent,
     SignUpComponent,
-    ArchivalDataComponent
+    ArchivalDataComponent,
+    NotFoundPageComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +45,8 @@ import {ButtonModule} from "primeng/button";
     TableModule,
     ReactiveFormsModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
