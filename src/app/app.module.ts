@@ -21,6 +21,7 @@ import { ArchivalDataComponent } from './archival-data/archival-data.component';
 import {ButtonModule} from "primeng/button";
 import {ChartModule} from "primeng/chart";
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import {DropdownModule} from "primeng/dropdown";
 
 @NgModule({
   declarations: [
@@ -34,20 +35,21 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     ArchivalDataComponent,
     NotFoundPageComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    HttpClientModule,
-    TableModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    ButtonModule,
-    ChartModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        HttpClientModule,
+        TableModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        ButtonModule,
+        ChartModule,
+        DropdownModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

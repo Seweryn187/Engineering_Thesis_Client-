@@ -1,28 +1,28 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Currency} from "../models/models";
+import { Source} from "../models/models";
 
 @Injectable({
   providedIn: 'root'
 })
-export class CurrencyService {
+export class SourceService {
 
   header: HttpHeaders;
   serverUrl: string;
-  currencies$: Observable<Currency>;
+  sources$: Observable<Source>;
 
   constructor(private http: HttpClient) {
     this.header = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
     this.serverUrl = "http://localhost:8080";
-    this.currencies$ = this.getCurrenciesFromServer();
+    this.sources$ = this.getSourcesFromServer();
   }
 
-  getCurrenciesFromServer(): Observable<Currency> {
-    return this.http.get<Currency>(this.serverUrl+"/currencies", { 'headers': this.header });
+  getSourcesFromServer(): Observable<Source> {
+    return this.http.get<Source>(this.serverUrl+"/sources", { 'headers': this.header });
   }
 
-  getCurrentValue():  Observable<Currency>{
-    return this.currencies$;
+  getSources():  Observable<Source>{
+    return this.sources$;
   }
 }

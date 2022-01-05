@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Currency} from "../models/models";
-import {CurrencyService} from "../services/currency.service";
+import {Currency, CurrentValue, Source} from "../models/models";
+import {CurrentValueService} from "../services/current-value.service";
 import {Router} from "@angular/router";
+import {SourceService} from "../services/source.service";
 
 @Component({
   selector: 'app-current-value-table',
@@ -10,20 +11,34 @@ import {Router} from "@angular/router";
 })
 export class CurrentValueTableComponent implements OnInit {
 
-  currencies: Array<Currency> = [];
+  currentValues: Array<CurrentValue> = [];
+  selectedSource: Array<Currency> = [];
   selectedCurrency: Currency | undefined;
+  sources: Source[] = [];
 
-  constructor(private service:CurrencyService, private router: Router) {
+  constructor(private currentValueService:CurrentValueService, private router: Router, private sourceService:SourceService) {
   }
 
   ngOnInit(): void {
-    this.service.getCurrentValue().subscribe((data:any) => {
-      data.forEach((val:any) => this.currencies.push(Object.assign({}, val)));
+    this.sourceService.getSources().subscribe((data:any) => {
+      this.sources = data;
+    });
+    this.currentValueService.getCurrentValue().subscribe((data:any) => {
+      this.currentValues = data;
     })
+
   }
 
   onRowSelect(event:any) {
-    this.router.navigate(['/home/archival-data/', { abbr: event.data.abbr}]);
+    this.router.navigate(['/home/archival-data', event.data.currency.abbr]);
+  }
+
+  onDropdownChange(event:any) {
+    this.currentValueService.setCurrentSource(event.value.name);
+    this.currentValueService.setCurrentValue(this.currentValueService.getCurrentValuesBySourceNameFromServer(event.value.name));
+    this.currentValueService.getCurrentValue().subscribe((data:any) => {
+      this.currentValues = data;
+    })
   }
 
 

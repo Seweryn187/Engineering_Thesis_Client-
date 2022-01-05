@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-archival-data',
@@ -9,10 +10,17 @@ export class ArchivalDataComponent implements OnInit {
 
   chartData: any;
   chartOptions: any;
+  abbr: string | undefined;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) {
+
+  }
 
   ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.abbr = params['abbr'];
+
+    });
   }
 
 }

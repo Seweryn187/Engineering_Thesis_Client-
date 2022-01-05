@@ -1,9 +1,21 @@
 <div class="current-value-table-container">
   <div class="card">
-  <p-table [value]="currencies" selectionMode="single" [(selection)]="selectedCurrency" (onRowSelect)="onRowSelect($event)">
+  <p-table
+    [value]="currentValues"
+    selectionMode="single"
+    [(selection)]="selectedCurrency"
+    (onRowSelect)="onRowSelect($event)">
+
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
         Exchange rate
+        <p-dropdown
+          class="float-right"
+          [options]="sources"
+          optionLabel="name"
+          [placeholder]="sources[0].name"
+          (onChange)="onDropdownChange($event)">
+        </p-dropdown>
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -16,14 +28,14 @@
         <th>Spread</th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-currency>
-        <tr [pSelectableRow]="currency">
-            <td>{{currency.abbr}}</td>
-            <td>{{currency.name | titlecase}}</td>
-            <td>{{currency.currentValue.bidValue/1000 + " PLN"}}</td>
-            <td>{{currency.currentValue.askValue/1000 + " PLN"}}</td>
-            <td>{{currency.currentValue.meanValue/1000 + " PLN"}}</td>
-            <td>{{currency.currentValue.spread/100 + " %"}}</td>
+    <ng-template pTemplate="body" let-currentValue>
+        <tr [pSelectableRow]="currentValue">
+            <td>{{currentValue.currency.abbr}}</td>
+            <td>{{currentValue.currency.name | titlecase}}</td>
+            <td>{{currentValue.bidValue/1000 + " PLN"}}</td>
+            <td>{{currentValue.askValue/1000 + " PLN"}}</td>
+            <td>{{currentValue.meanValue/1000 + " PLN"}}</td>
+            <td>{{currentValue.spread/100 + " %"}}</td>
         </tr>
     </ng-template>
   </p-table>
