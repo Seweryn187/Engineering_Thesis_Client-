@@ -1,12 +1,9 @@
 export interface Currency {
-  id: number;
   name: string;
   abbr: string;
-  currentValue: CurrentValue;
 }
 
 export interface CurrentValue {
-  id: number;
   bidValue: number;
   askValue: number;
   source: Source;
@@ -15,6 +12,7 @@ export interface CurrentValue {
   spread: number;
   bidIncrease: boolean;
   askIncrease: boolean;
+  currency: Currency;
 }
 
 export interface CurrentValues {
@@ -22,7 +20,29 @@ export interface CurrentValues {
 }
 
 export interface Source {
-  id: number;
   name: string;
   type: string;
+}
+
+export interface HistoricalValue {
+  meanBidValue: number;
+  meanAskValue: number;
+  source: Source;
+  meanValue: number;
+  date: Date;
+  spread: number;
+  currency: Currency;
+}
+
+export interface User {
+  name: string;
+  surname: string;
+  email: string;
+  login: string;
+  password: string;
+
+}
+
+export class GenericResponse {
+  response?: string;
 }

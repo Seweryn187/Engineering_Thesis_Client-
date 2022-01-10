@@ -12,25 +12,26 @@ import {SourceService} from "../services/source.service";
 export class CurrentValueTableComponent implements OnInit {
 
   currentValues: Array<CurrentValue> = [];
-  selectedSource: Array<Currency> = [];
   selectedCurrency: Currency | undefined;
   sources: Source[] = [];
+  selectedSource: Source = {name: "", type: ""};
 
-  constructor(private currentValueService:CurrentValueService, private router: Router, private sourceService:SourceService) {
+  constructor(public currentValueService:CurrentValueService, private router: Router, private sourceService:SourceService) {
+
   }
 
   ngOnInit(): void {
     this.sourceService.getSources().subscribe((data:any) => {
       this.sources = data;
     });
+
     this.currentValueService.getCurrentValue().subscribe((data:any) => {
       this.currentValues = data;
     })
-
   }
 
   onRowSelect(event:any) {
-    this.router.navigate(['/home/archival-data', event.data.currency.abbr]);
+    this.router.navigate(['/home/archival-data', event.data.currency.abbr, this.currentValueService.getCurrentSource()]);
   }
 
   onDropdownChange(event:any) {
@@ -39,7 +40,7 @@ export class CurrentValueTableComponent implements OnInit {
     this.currentValueService.getCurrentValue().subscribe((data:any) => {
       this.currentValues = data;
     })
-  }
 
+  }
 
 }

@@ -15,7 +15,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import {HttpClientModule} from "@angular/common/http";
 import {TableModule} from "primeng/table";
 import { SignUpComponent } from './sign-up/sign-up.component';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import { ArchivalDataComponent } from './archival-data/archival-data.component';
 import {ButtonModule} from "primeng/button";
@@ -48,7 +48,8 @@ import {DropdownModule} from "primeng/dropdown";
         InputTextModule,
         ButtonModule,
         ChartModule,
-        DropdownModule
+        DropdownModule,
+        FormsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

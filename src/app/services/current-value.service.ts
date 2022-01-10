@@ -1,22 +1,18 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Observable, retry, share, Subject, switchMap, takeUntil, timer} from "rxjs";
 import {CurrentValue} from "../models/models";
+import {httpConstants} from "../constants/http-constants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrentValueService {
-
-  header: HttpHeaders;
-  serverUrl: string;
   currentValues$: Observable<CurrentValue>;
   currentSource: string;
   private stopPolling = new Subject();
 
   constructor(private http: HttpClient) {
-    this.header = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
-    this.serverUrl = "http://localhost:8080";
     this.currentSource = "The National Bank of Poland";
     this.currentValues$ =this.getCurrentValuesBySourceNameFromServer(this.currentSource);
 
@@ -38,8 +34,8 @@ export class CurrentValueService {
   }
 
   getCurrentValuesBySourceNameFromServer(name:string): Observable<CurrentValue> {
-    let link = encodeURI(this.serverUrl + "/current-values/" + name);
-    return this.http.get<CurrentValue>(link, { 'headers': this.header });
+    let link = encodeURI(httpConstants.serverUrl + "/current-values/" + name);
+    return this.http.get<CurrentValue>(link, { 'headers': httpConstants.header });
   }
 
   setCurrentValue(currentValues:Observable<CurrentValue>) {

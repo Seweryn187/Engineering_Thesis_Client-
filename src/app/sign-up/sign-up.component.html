@@ -3,32 +3,56 @@
     <h1>Sign up form</h1>
   </label>
   <div id="border" class="sign-up-border">
-    <form [formGroup]="signUpForm">
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
         <div class="grid">
           <div class="col-6 ml-6">
             <label class="input-label" for="name">Name</label>
-            <input id="name" type="name" aria-describedby="name" placeholder="Name" pInputText />
+            <input id="name" type="name" aria-describedby="name" placeholder="Name"
+                   formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && form['name'].errors }" pInputText />
+            <div *ngIf="submitted && form['name'].errors" class="invalid-feedback">
+              <div *ngIf="form['name'].errors['required']">Name is required</div>
+            </div>
           </div>
           <div class="col-3">
             <label class="input-label" for="surname">Surname</label>
-            <input id="surname" type="surname" aria-describedby="surname" placeholder="Surname" pInputText />
+            <input id="surname" type="surname" aria-describedby="surname" placeholder="Surname"
+                   formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': submitted && form['surname'].errors }" pInputText />
+            <div *ngIf="submitted && form['surname'].errors" class="invalid-feedback">
+              <div *ngIf="form['surname'].errors['required']">Surname is required</div>
+            </div>
           </div>
           <div class="col-6 ml-6 mt-4">
             <label class="input-label" for="login">Login</label>
-            <input id="login" type="login" aria-describedby="login" placeholder="Login" pInputText />
+            <input id="login" type="login" aria-describedby="login" placeholder="Login"
+                   formControlName="login" class="form-control" [ngClass]="{ 'is-invalid': submitted && form['login'].errors }" pInputText />
+            <div *ngIf="submitted && form['login'].errors" class="invalid-feedback">
+              <div *ngIf="form['login'].errors['required']">Login is required</div>
+            </div>
           </div>
           <div class="col-4 mt-4">
             <label class="input-label" for="password">Password</label>
-            <input id="password" type="password" aria-describedby="password" placeholder="Password" pInputText />
+            <input id="password" type="password" aria-describedby="password" placeholder="Password"
+                   formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && form['password'].errors }" pInputText />
+            <div *ngIf="submitted && form['password'].errors" class="invalid-feedback">
+              <div *ngIf="form['password'].errors['required']">Password is required</div>
+              <div *ngIf="form['password'].errors['minlength']">Password must be at least 6 characters</div>
+            </div>
           </div>
           <div class="col-3"></div>
           <div class="col-4 ml-6 mt-4">
             <label class="input-label" for="email">E-mail</label>
-            <input id="email" type="email" aria-describedby="email" placeholder="E-mail" pInputText />
+            <input id="email" type="email" aria-describedby="email" placeholder="E-mail"
+                   formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && form['email'].errors }" pInputText />
+            <div *ngIf="submitted && form['email'].errors" class="invalid-feedback">
+              <div *ngIf="form['email'].errors['required']">Email is required</div>
+            </div>
+            <div *ngIf="wrongEmail" class="invalid-feedback">
+              <div>This email is taken</div>
+            </div>
           </div>
           <div class="col-7"></div>
           <div class="col-4 mt-3 text-right">
-            <p-button label="Sign up" ></p-button>
+              <p-button type="submit" label="Sign up" ></p-button>
           </div>
         </div>
     </form>

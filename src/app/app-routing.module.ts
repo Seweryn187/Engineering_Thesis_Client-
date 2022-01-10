@@ -8,11 +8,12 @@ import {ArchivalDataComponent} from "./archival-data/archival-data.component";
 import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'home/sign-in', component: SignInComponent },
   { path: 'home/current-value-table', component: CurrentValueTableComponent },
   { path: 'home/sign-up', component: SignUpComponent},
-  { path: 'home/archival-data/:abbr', component: ArchivalDataComponent},
+  { path: 'home/archival-data/:abbr/:source', component: ArchivalDataComponent},
   { path: '**', component: NotFoundPageComponent}
 ];
 

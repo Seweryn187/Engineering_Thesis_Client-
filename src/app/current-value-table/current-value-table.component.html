@@ -11,6 +11,7 @@
         Exchange rate
         <p-dropdown
           class="float-right"
+          [(ngModel)]="selectedSource"
           [options]="sources"
           optionLabel="name"
           [placeholder]="sources[0].name"

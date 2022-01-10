@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
+import {UserService} from "../services/user.service";
+import {first} from "rxjs";
+import {GenericResponse} from "../models/models";
+
 
 @Component({
   selector: 'app-sign-up',
@@ -7,17 +12,50 @@ import {FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./sign-up.component.sass']
 })
 export class SignUpComponent implements OnInit {
-  signUpForm = new FormGroup({
-    name: new FormControl(''),
-    surname: new FormControl(''),
-    email: new FormControl(''),
-    login: new FormControl(''),
-    password: new FormControl(''),
-  });
+  signUpForm: FormGroup;
+  submitted:boolean = false;
+  wrongEmail:boolean = false;
 
-  constructor() { }
+
+  constructor( private formBuilder: FormBuilder, private router: Router, private userService: UserService) {
+    this.signUpForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      login: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    });
+  }
 
   ngOnInit(): void {
+
+  }
+
+  get form(): { [key: string]: AbstractControl; }
+  {
+    return this.signUpForm.controls;
+  }
+
+  onSubmit() {
+    this.submitted = true;
+
+    if (this.signUpForm.invalid) {
+      return;
+    }
+
+    this.userService.register(this.signUpForm.value)
+      .pipe(first())
+      .subscribe({
+        next: (value) => {
+          let text: GenericResponse = value;
+          if(text.response == "sign-up"){
+            this.wrongEmail = true;
+          } else{
+            this.wrongEmail = false;
+            this.router.navigate(['home/sign-in']);
+          }
+        }
+      });
   }
 
 }
