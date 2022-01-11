@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {Injectable, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,7 +12,7 @@ import { CurrentValueTableComponent } from './current-value-table/current-value-
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import { SignInComponent } from './sign-in/sign-in.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {TableModule} from "primeng/table";
 import { SignUpComponent } from './sign-up/sign-up.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -22,6 +22,7 @@ import {ButtonModule} from "primeng/button";
 import {ChartModule} from "primeng/chart";
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import {DropdownModule} from "primeng/dropdown";
+import {AppService, XhrInterceptor} from "./app.service";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,9 @@ import {DropdownModule} from "primeng/dropdown";
         DropdownModule,
         FormsModule
     ],
-  providers: [],
+  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+

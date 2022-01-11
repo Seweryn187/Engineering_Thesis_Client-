@@ -8,7 +8,7 @@ import {ArchivalDataComponent} from "./archival-data/archival-data.component";
 import {NotFoundPageComponent} from "./not-found-page/not-found-page.component";
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
   { path: 'home/sign-in', component: SignInComponent },
   { path: 'home/current-value-table', component: CurrentValueTableComponent },

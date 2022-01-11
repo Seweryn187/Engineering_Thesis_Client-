@@ -3,18 +3,20 @@
     <h1>Sign in form</h1>
   </label>
   <div id="border" class="sign-in-border">
-    <form [formGroup]="signInForm">
+    <form [formGroup]="signInForm" (submit)="login()">
       <div class="grid">
         <div class="col-6 ml-6">
           <label class="input-label" for="login">Login</label>
-          <input id="login" type="login" aria-describedby="login" placeholder="Login" pInputText />
+          <input id="login" type="login" aria-describedby="login" placeholder="Login"
+                 formControlName="login" class="form-control" pInputText />
         </div>
         <div class="col-5">
           <label class="input-label" for="password">Password</label>
-          <input id="password" type="password" aria-describedby="password" placeholder="Password" pInputText />
+          <input id="password" type="password" aria-describedby="password" placeholder="Password"
+                 formControlName="password" class="form-control" pInputText />
         </div>
         <div class="col-11 mt-3 text-right">
-          <p-button label="Sign In" ></p-button>
+          <p-button label="Sign In" type="submit" ></p-button>
         </div>
       </div>
     </form>

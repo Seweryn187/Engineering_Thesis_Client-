@@ -54,7 +54,10 @@ export class SignUpComponent implements OnInit {
             this.wrongEmail = false;
             this.router.navigate(['home/sign-in']);
           }
-        }
+        },
+        error: (err => {
+          this.wrongEmail = true;
+        })
       });
   }
 
