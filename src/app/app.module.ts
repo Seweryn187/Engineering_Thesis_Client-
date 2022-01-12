@@ -22,6 +22,8 @@ import {ButtonModule} from "primeng/button";
 import {ChartModule} from "primeng/chart";
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import {DropdownModule} from "primeng/dropdown";
+import {authInterceptorProviders} from "./authentication.interceptor";
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import {DropdownModule} from "primeng/dropdown";
     SignInComponent,
     SignUpComponent,
     ArchivalDataComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    UserProfileComponent
   ],
     imports: [
         BrowserModule,
@@ -51,7 +54,7 @@ import {DropdownModule} from "primeng/dropdown";
         DropdownModule,
         FormsModule
     ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

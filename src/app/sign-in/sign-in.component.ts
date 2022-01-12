@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from "@angular/forms";
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {AuthenticationService} from "../services/authentication.service";
+import {TokenStorageService} from "../services/token-storage.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -7,14 +10,47 @@ import {FormControl, FormGroup} from "@angular/forms";
   styleUrls: ['./sign-in.component.sass']
 })
 export class SignInComponent implements OnInit {
-  signInForm = new FormGroup({
-    login: new FormControl(''),
-    password: new FormControl('')
-  });
+  signInForm: FormGroup;
+  isLoggedIn:boolean = false;
+  isLoginFailed:boolean = false;
 
-  constructor() { }
+  constructor( private formBuilder: FormBuilder, private authenticationService: AuthenticationService, private tokenStorage: TokenStorageService, private router : Router) {
+    this.signInForm = this.formBuilder.group({
+      login: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.router.navigate(['home/user/profile']);
+    }
+  }
+
+  get form(): { [key: string]: AbstractControl; }
+  {
+    return this.signInForm.controls;
+  }
+
+  onSubmit() {
+    const {login, password} = this.signInForm.value;
+    console.log(this.signInForm.value);
+    this.authenticationService.login(login, password).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        if(this.isLoggedIn){
+          this.router.navigate(['home/user/profile']);
+        }
+      },
+      err => {
+        this.isLoginFailed = true;
+      }
+    );
   }
 
 }
