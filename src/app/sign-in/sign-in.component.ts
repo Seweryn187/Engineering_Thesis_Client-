@@ -14,7 +14,8 @@ export class SignInComponent implements OnInit {
   isLoggedIn:boolean = false;
   isLoginFailed:boolean = false;
 
-  constructor( private formBuilder: FormBuilder, private authenticationService: AuthenticationService, private tokenStorage: TokenStorageService, private router : Router) {
+  constructor( private formBuilder: FormBuilder, private authenticationService: AuthenticationService,
+               private tokenStorage: TokenStorageService, private router : Router) {
     this.signInForm = this.formBuilder.group({
       login: ['', Validators.required],
       password: ['', Validators.required]
@@ -38,7 +39,7 @@ export class SignInComponent implements OnInit {
     console.log(this.signInForm.value);
     this.authenticationService.login(login, password).subscribe(
       data => {
-        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveToken(data.token);
         this.tokenStorage.saveUser(data);
 
         this.isLoginFailed = false;
@@ -48,6 +49,7 @@ export class SignInComponent implements OnInit {
         }
       },
       err => {
+        console.log(err);
         this.isLoginFailed = true;
       }
     );

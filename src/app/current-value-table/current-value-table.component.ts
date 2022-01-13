@@ -14,10 +14,10 @@ export class CurrentValueTableComponent implements OnInit {
   currentValues: Array<CurrentValue> = [];
   selectedCurrency: Currency | undefined;
   sources: Source[] = [];
-  selectedSource: Source = {name: "", type: ""};
+  selectedSource: string = "";
 
   constructor(public currentValueService:CurrentValueService, private router: Router, private sourceService:SourceService) {
-
+    this.selectedSource = this.sourceService.getCurrentSource();
   }
 
   ngOnInit(): void {
@@ -31,11 +31,11 @@ export class CurrentValueTableComponent implements OnInit {
   }
 
   onRowSelect(event:any) {
-    this.router.navigate(['/home/archival-data', event.data.currency.abbr, this.currentValueService.getCurrentSource()]);
+    this.router.navigate(['/home/archival-data', event.data.currency.abbr, this.sourceService.getCurrentSource()]);
   }
 
   onDropdownChange(event:any) {
-    this.currentValueService.setCurrentSource(event.value.name);
+    this.sourceService.setCurrentSource(event.value.name);
     this.currentValueService.setCurrentValue(this.currentValueService.getCurrentValuesBySourceNameFromServer(event.value.name));
     this.currentValueService.getCurrentValue().subscribe((data:any) => {
       this.currentValues = data;

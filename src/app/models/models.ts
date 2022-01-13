@@ -46,3 +46,12 @@ export interface User {
 export class GenericResponse {
   response?: string;
 }
+
+export interface Alert {
+  id?: number;
+  currency: Currency;
+  user?: User;
+  alertValue: number;
+  increase: boolean;
+  repeatable: boolean;
+}

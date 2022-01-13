@@ -3,18 +3,17 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, retry, share, Subject, switchMap, takeUntil, timer} from "rxjs";
 import {CurrentValue} from "../models/models";
 import {httpConstants} from "../constants/http-constants";
+import {SourceService} from "./source.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CurrentValueService {
   currentValues$: Observable<CurrentValue>;
-  currentSource: string;
   private stopPolling = new Subject();
 
-  constructor(private http: HttpClient) {
-    this.currentSource = "The National Bank of Poland";
-    this.currentValues$ =this.getCurrentValuesBySourceNameFromServer(this.currentSource);
+  constructor(private http: HttpClient, private sourceService: SourceService) {
+    this.currentValues$ =this.getCurrentValuesBySourceNameFromServer(this.sourceService.getCurrentSource());
 
     /*
     let link = encodeURI(this.serverUrl + "/current-values/" + this.currentSource);
@@ -44,13 +43,5 @@ export class CurrentValueService {
 
   getCurrentValue(): Observable<CurrentValue>{
     return this.currentValues$;
-  }
-
-  getCurrentSource() {
-    return this.currentSource;
-  }
-
-  setCurrentSource(newSource:string) {
-    this.currentSource = newSource;
   }
 }

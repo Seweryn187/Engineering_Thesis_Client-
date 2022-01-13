@@ -3,10 +3,21 @@
     <a class="home-navbar-link" routerLink="/home">Investing Pal</a>
     <span class="mini-spacer"></span>
     <a class="currency-table-link" routerLink="/home/current-value-table">Currency value table</a>
+    <span class="mini-spacer"></span>
+    <p-dropdown #drop_i [options]="currencies" [(ngModel)]="selectedCurrency" (onChange)="handleDropdownChange(drop_i)"  optionLabel="abbr" placeholder="Historical value chart"></p-dropdown>
     <span class="spacer"></span>
-    <a class="sign-in-link" routerLink="/home/sign-up">Sign up</a>
-    <button mat-icon-button class="sign-in-button" aria-label="icon-button for singing up" routerLink="/home/sign-up">
-      <mat-icon class="sign-in-icon pr-5">account_circle</mat-icon>
-    </button>
+    <div class="not-logged">
+      <a *ngIf="!tokenStorageService.getToken()" class="sign-in-link" routerLink="/home/sign-up">Sign up</a>
+      <button *ngIf="!tokenStorageService.getToken()" mat-icon-button class="sign-in-button" aria-label="icon-button for singing up" routerLink="/home/sign-up">
+        <mat-icon class="sign-in-icon pr-5">account_circle</mat-icon>
+      </button>
+    </div>
+    <div *ngIf="tokenStorageService.getToken()" class="logged pt-1">
+      <a class="sign-in-link" routerLink="/home/user/profile">Profile</a>
+      <button id="account-button" mat-icon-button class="sign-in-button" aria-label="icon-button for singing up" routerLink="/home/user/profile">
+        <mat-icon class="sign-in-icon pr-5">account_circle</mat-icon>
+      </button>
+      <a id="sign-out-link" class="sign-in-link" (click)="handleSignOut()">Sign out</a>
+    </div>
   </mat-toolbar>
 </div>

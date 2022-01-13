@@ -24,6 +24,11 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
 import {DropdownModule} from "primeng/dropdown";
 import {authInterceptorProviders} from "./authentication.interceptor";
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import {ConfirmPopupModule} from "primeng/confirmpopup";
+import {RippleModule} from "primeng/ripple";
+import {DialogModule} from "primeng/dialog";
+import {RadioButtonModule} from "primeng/radiobutton";
+import {CheckboxModule} from "primeng/checkbox";
 
 @NgModule({
   declarations: [
@@ -38,22 +43,27 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     NotFoundPageComponent,
     UserProfileComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatButtonModule,
-        HttpClientModule,
-        TableModule,
-        ReactiveFormsModule,
-        InputTextModule,
-        ButtonModule,
-        ChartModule,
-        DropdownModule,
-        FormsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    HttpClientModule,
+    TableModule,
+    ReactiveFormsModule,
+    InputTextModule,
+    ButtonModule,
+    ChartModule,
+    DropdownModule,
+    FormsModule,
+    ConfirmPopupModule,
+    RippleModule,
+    DialogModule,
+    RadioButtonModule,
+    CheckboxModule
+  ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
