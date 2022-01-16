@@ -29,6 +29,8 @@ import {RippleModule} from "primeng/ripple";
 import {DialogModule} from "primeng/dialog";
 import {RadioButtonModule} from "primeng/radiobutton";
 import {CheckboxModule} from "primeng/checkbox";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import {CheckboxModule} from "primeng/checkbox";
     RippleModule,
     DialogModule,
     RadioButtonModule,
-    CheckboxModule
+    CheckboxModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

@@ -4,7 +4,7 @@
     <span class="mini-spacer"></span>
     <a class="currency-table-link" routerLink="/home/current-value-table">Currency value table</a>
     <span class="mini-spacer"></span>
-    <p-dropdown #drop_i [options]="currencies" [(ngModel)]="selectedCurrency" (onChange)="handleDropdownChange(drop_i)"  optionLabel="abbr" placeholder="Historical value chart"></p-dropdown>
+    <p-dropdown class="navbar-dropdown" #drop_i [options]="currencies" [(ngModel)]="selectedCurrency" (onChange)="handleDropdownChange(drop_i, $event)"  optionLabel="abbr" placeholder="Historical value chart"></p-dropdown>
     <span class="spacer"></span>
     <div class="not-logged">
       <a *ngIf="!tokenStorageService.getToken()" class="sign-in-link" routerLink="/home/sign-up">Sign up</a>

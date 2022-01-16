@@ -13,7 +13,7 @@ export class CurrentValueService {
   private stopPolling = new Subject();
 
   constructor(private http: HttpClient, private sourceService: SourceService) {
-    this.currentValues$ =this.getCurrentValuesBySourceNameFromServer(this.sourceService.getCurrentSource());
+    this.currentValues$ =this.getCurrentValuesBySourceNameFromServer(this.sourceService.getCurrentSource().name);
 
     /*
     let link = encodeURI(this.serverUrl + "/current-values/" + this.currentSource);
@@ -37,11 +37,13 @@ export class CurrentValueService {
     return this.http.get<CurrentValue>(link, { 'headers': httpConstants.header });
   }
 
-  setCurrentValue(currentValues:Observable<CurrentValue>) {
+  setCurrentValues(currentValues:Observable<CurrentValue>) {
     this.currentValues$ = currentValues;
   }
 
-  getCurrentValue(): Observable<CurrentValue>{
+  getCurrentValues(): Observable<CurrentValue>{
     return this.currentValues$;
   }
+
+
 }

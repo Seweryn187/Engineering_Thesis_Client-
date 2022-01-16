@@ -9,11 +9,14 @@ import {httpConstants} from "../constants/http-constants";
 })
 export class SourceService {
 
-  currentSource: string;
+  currentSource: Source;
   sources$: Observable<Source>;
 
   constructor(private http: HttpClient) {
-    this.currentSource = "The National Bank of Poland";
+    this.currentSource = {
+      name: "The National Bank of Poland",
+      type: ""
+    };
     this.sources$ = this.getSourcesFromServer();
   }
 
@@ -25,11 +28,14 @@ export class SourceService {
     return this.sources$;
   }
 
-  getCurrentSource():string {
+  getCurrentSource():Source {
     return this.currentSource;
   }
 
   setCurrentSource(source:string) {
-    this.currentSource = source;
+    this.currentSource = {
+      name: source,
+      type: ''
+    }
   }
 }

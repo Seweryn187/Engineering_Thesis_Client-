@@ -20,8 +20,12 @@ export class NavbarComponent implements OnInit {
     login: '',
     password: ''
   };
-  selectedCurrency: Currency | undefined;
+  selectedCurrency: Currency = {
+    name: '',
+    abbr: ''
+  };
   currencies: Array<Currency> = [];
+  isCollapsed:boolean = true;
 
   constructor(public tokenStorageService: TokenStorageService, private router: Router,
               private currencyService: CurrencyService, private sourceService: SourceService,
@@ -39,9 +43,14 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(["/home"])
   }
 
-  handleDropdownChange(dropdown: Dropdown) {
-    this.router.navigate(['/home/archival-data', this.selectedCurrency?.abbr, this.sourceService.getCurrentSource()]);
-    dropdown.value = undefined;
+  handleDropdownChange(dropdown: Dropdown, event: any) {
+    if(event.value){
+      this.currencyService.setSelectedCurrency(event.value.abbr);
+    }
+    this.router.navigate(['/home/archival-data', this.currencyService.getSelectedCurrency().abbr, this.sourceService.getCurrentSource().name]);
+    if(event.value){
+      dropdown.clear(event);
+    }
   }
 
   handleDropdownBlur() {

@@ -10,9 +10,14 @@ import {httpConstants} from "../constants/http-constants";
 export class CurrencyService {
 
   currencies$: Observable<Currency>;
+  selectedCurrency: Currency;
 
   constructor(private http: HttpClient) {
     this.currencies$ = this.getAllCurrenciesFromServer();
+    this.selectedCurrency = {
+      name: '',
+      abbr: 'EUR'
+    }
   }
 
   getAllCurrenciesFromServer(): Observable<Currency> {
@@ -22,5 +27,13 @@ export class CurrencyService {
 
   getAllCurrencies(): Observable<Currency> {
     return this.currencies$;
+  }
+
+  getSelectedCurrency(): Currency {
+    return this.selectedCurrency;
+  }
+
+  setSelectedCurrency(abbr:string) {
+    this.selectedCurrency.abbr = abbr;
   }
 }

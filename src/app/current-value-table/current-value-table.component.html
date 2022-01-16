@@ -8,13 +8,16 @@
 
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
-        Exchange rate
+        Exchange rates table
         <p-dropdown
+          *ngIf="sources.length"
+          id="source-dropdown"
           class="float-right"
           [(ngModel)]="selectedSource"
           [options]="sources"
           optionLabel="name"
-          (onChange)="onDropdownChange($event)">
+          (onChange)="onDropdownChange($event)"
+          >
         </p-dropdown>
       </div>
     </ng-template>

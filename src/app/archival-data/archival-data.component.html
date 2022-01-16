@@ -1,6 +1,27 @@
 <div class="chart-container">
   <div class="card">
-    <h1>Archival data chart</h1>
-    <p-chart type="line" [data]="chartData" [options]="chartOptions"></p-chart>
+    <h1>Archival data of {{abbr}} value from {{source}}</h1>
+    <p-chart id="chart" type="line" [data]="chartData" [options]="chartOptions" width="80vw" height="30vw" ></p-chart>
+    <div class="dropdown-container text-center">
+      <label class="dropdown-label" for="source-dropdown">Source: </label>
+      <p-dropdown
+        id="source-dropdown"
+        class="archival-data-source-dropdown"
+        [(ngModel)]="selectedSource"
+        [options]="sources"
+        (onChange)="onSourceDropdownChange($event)"
+        optionLabel="name">
+      </p-dropdown>
+
+      <label class="dropdown-label" for="source-dropdown">Currency: </label>
+      <p-dropdown
+        id="currency-dropdown"
+        class="navbar-dropdown"
+        [(ngModel)]="selectedCurrency"
+        [options]="currencies"
+        (onChange)="onCurrencyAbbrDropdownChange($event)"
+        optionLabel="abbr">
+      </p-dropdown>
+    </div>
   </div>
 </div>
