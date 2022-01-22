@@ -16,6 +16,7 @@
           [(ngModel)]="selectedSource"
           [options]="sources"
           optionLabel="name"
+          [placeholder]="selectedSource.name"
           (onChange)="onDropdownChange($event)"
           >
         </p-dropdown>

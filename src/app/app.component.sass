@@ -1,3 +1,5 @@
+@import 'src/styles'
+
 .body
   background-color: #efe8e8
   color: #d32f41
@@ -6,5 +8,18 @@ router-outlet
   margin: 10% auto
   overflow-scrolling: auto
 
+:host::ng-deep body > app-navbar > div > mat-toolbar > p-dropdown > div
+  background: #3f51b5
+  border-width: 0 !important
+  font-family: $primary_font
+  color: #eaeaea !important
 
+:host::ng-deep body > app-navbar .p-dropdown .p-dropdown-label.p-placeholder
+  color: #eaeaea
+  border-width: 0 !important
 
+:host::ng-deep body > app-navbar .p-dropdown-trigger
+  color: #eaeaea
+
+:host::ng-deep .p-focus
+  box-shadow: 0 0 0 0 #3f51b5 !important

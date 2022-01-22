@@ -25,8 +25,8 @@ export class AlertService {
     return this.http.post<Alert>(link, alert, { 'headers': httpConstants.header });
   }
 
-  deleteAlert(alertId: number | undefined) {
-    let link = encodeURI(httpConstants.serverUrl + "/alerts/delete/" + alertId);
+    deleteAlert(alertValue: number | undefined, email: string, abbr: string) {
+    let link = encodeURI(httpConstants.serverUrl + "/alerts/delete/" + alertValue + "/" + email + "/" + abbr);
     return this.http.delete<Alert>(link,{ 'headers': httpConstants.header });
   }
 }

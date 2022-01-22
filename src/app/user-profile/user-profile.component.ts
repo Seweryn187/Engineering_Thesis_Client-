@@ -33,6 +33,8 @@ export class UserProfileComponent implements OnInit {
   newAlert: Alert;
   alertDialog:boolean = false;
   submittedAlert:boolean = false;
+  newAlertValue: number = 0;
+  wrongNewAlertValue:boolean = false;
   alertOptions: Array<Object> = [{ name: "Yes", value: true}, { name: "No", value: false}];
   currencies: Array<Currency> = [];
 
@@ -155,7 +157,11 @@ export class UserProfileComponent implements OnInit {
   }
 
   saveAlert() {
-    let integerValue = this.newAlert.alertValue * 1000;
+    if(this.newAlertValue === 0){
+      this.wrongNewAlertValue = true;
+      return;
+    }
+    let integerValue = this.newAlertValue * 1000;
     this.newAlert.alertValue = Math.trunc(integerValue);
     this.newAlert.user = this.userService.getCurrentUser();
     this.alertService.addNewAlert(this.newAlert)
@@ -165,6 +171,8 @@ export class UserProfileComponent implements OnInit {
           this.userAlerts.push(this.newAlert);
           this.alertDialog = false;
           this.submittedAlert = false;
+          this.newAlertValue = 0;
+          this.wrongNewAlertValue = false;
         },
         error: err => {
           console.log(err);
@@ -173,7 +181,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   deleteAlert(alert:Alert) {
-    this.alertService.deleteAlert(alert.id)
+    this.alertService.deleteAlert(alert.alertValue, this.userService.getCurrentUser().email, alert.currency.abbr)
       .pipe(first())
       .subscribe({
         next: () => {

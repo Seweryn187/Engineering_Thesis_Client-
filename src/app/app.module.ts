@@ -31,6 +31,7 @@ import {RadioButtonModule} from "primeng/radiobutton";
 import {CheckboxModule} from "primeng/checkbox";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
+import {InputNumberModule} from "primeng/inputnumber";
 
 @NgModule({
   declarations: [
@@ -45,29 +46,30 @@ import {MatSelectModule} from "@angular/material/select";
     NotFoundPageComponent,
     UserProfileComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    HttpClientModule,
-    TableModule,
-    ReactiveFormsModule,
-    InputTextModule,
-    ButtonModule,
-    ChartModule,
-    DropdownModule,
-    FormsModule,
-    ConfirmPopupModule,
-    RippleModule,
-    DialogModule,
-    RadioButtonModule,
-    CheckboxModule,
-    MatFormFieldModule,
-    MatSelectModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatButtonModule,
+        HttpClientModule,
+        TableModule,
+        ReactiveFormsModule,
+        InputTextModule,
+        ButtonModule,
+        ChartModule,
+        DropdownModule,
+        FormsModule,
+        ConfirmPopupModule,
+        RippleModule,
+        DialogModule,
+        RadioButtonModule,
+        CheckboxModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        InputNumberModule
+    ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })

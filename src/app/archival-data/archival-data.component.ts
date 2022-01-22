@@ -1,9 +1,10 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router, NavigationStart} from "@angular/router";
 import {Currency, HistoricalValue, Source} from "../models/models";
 import {HistoricalValueService} from "../services/historical-value.service";
 import {CurrencyService} from "../services/currency.service";
 import {SourceService} from "../services/source.service";
+import {UIChart} from "primeng/chart";
 
 @Component({
   selector: 'app-archival-data',
@@ -14,7 +15,7 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
 
   chartData: any;
   sources: Source[] = [];
-  selectedSource: Source | undefined;
+  selectedSource: Source;
   chartOptions: any;
   abbr: string = '';
   source: string = '';
@@ -27,6 +28,7 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
 
   constructor(private route: ActivatedRoute, private historicalValueService:HistoricalValueService, private currencyService: CurrencyService, public sourceService: SourceService, private router: Router) {
     this.resetChartData();
+    this.selectedSource = this.sourceService.getCurrentSource();
     this.route.params.subscribe(params => {
       this.abbr = params['abbr'];
       this.source = params['source']
@@ -40,7 +42,6 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
         this.historicalValues=data;
         this.selectedCurrency = this.currencyService.getSelectedCurrency();
         this.sourceService.setCurrentSource(this.historicalValues[0].source.name)
-        this.selectedSource = this.sourceService.getCurrentSource();
         this.prepareChartData();
       });
 
@@ -49,12 +50,7 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
         position: 'bottom'
       }
     };
-  }
 
-  ngAfterContentInit(): void {
-  }
-
-  ngOnInit(): void {
     this.router.events.subscribe(event =>{
       if (event instanceof NavigationStart){
         this.historicalValueService.getHistoricalValuesByCurrencyAbbrAndSourceNameFromServer(this.currencyService.getSelectedCurrency().abbr, this.sourceService.getCurrentSource().name).subscribe(
@@ -68,12 +64,19 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
           });
       }
     })
+  }
+
+  ngAfterContentInit(): void {
+  }
+
+  ngOnInit(): void {
     this.currencyService.getAllCurrencies().subscribe((data: any) => {
       this.currencies = data;
     });
     this.sourceService.getSources().subscribe((data:any) => {
       this.sources = data;
     });
+    console.log(this.historicalValues);
   }
 
   onSourceDropdownChange(event: any) {

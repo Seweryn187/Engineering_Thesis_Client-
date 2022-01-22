@@ -61,7 +61,7 @@
           </form>
         </div>
       </div>
-      <div class="col-5 ml-6">
+      <div class="col-5.5 ml-7">
           <p-table
             [value]="userAlerts"
           >
@@ -87,7 +87,7 @@
           <div class="col-12 text-right">
             <button pButton pRipple label="Add new alert" icon="pi pi-plus" class="p-button-success p-mr-2" (click)="openNewAlert()"></button>
           </div>
-        <p-dialog [(visible)]="alertDialog" [style]="{width: '450px'}" header="Alert Details" [modal]="true" styleClass="p-fluid">
+        <p-dialog [(visible)]="alertDialog" [style]="{width: '450px', height: '600px'}" header="Alert Details" [modal]="true" styleClass="p-fluid">
           <ng-template pTemplate="content">
             <div class="p-field mb-4">
               <label for="alertCurrency">Name</label>
@@ -96,18 +96,18 @@
             </div>
             <div class="p-field mb-4">
               <label for="alertValue">Alert Value</label>
-              <input type="number" pInputText id="alertValue" [min]="0" [(ngModel)]="newAlert.alertValue" required autofocus />
-              <small class="p-error" *ngIf="submittedAlert && !newAlert.alertValue">Abbr is required.</small>
+              <p-inputNumber id="alertValue" type="number" mode="decimal" [required]="true" [min]="0" [maxFractionDigits]="2" [(ngModel)]="newAlertValue"></p-inputNumber>
+              <small class="p-error" *ngIf="wrongNewAlertValue">Alert value is required.</small>
             </div>
             <div class="p-field mb-4">
               <label for="increase">Increase</label>
               <p-dropdown id="increase" [options]="alertOptions" [(ngModel)]="newAlert.increase" optionLabel="name" optionValue="value"></p-dropdown>
-              <small class="p-error" *ngIf="submittedAlert && !newAlert.increase">Abbr is required.</small>
+              <small class="p-error" *ngIf="submittedAlert && !newAlert.increase">Increase is required.</small>
             </div>
             <div class="p-field mb-4">
               <label for="repeatable">Repeatable</label>
               <p-dropdown id="repeatable" [options]="alertOptions" [(ngModel)]="newAlert.repeatable" optionLabel="name" optionValue="value"></p-dropdown>
-              <small class="p-error" *ngIf="submittedAlert && !newAlert.repeatable">Abbr is required.</small>
+              <small class="p-error" *ngIf="submittedAlert && !newAlert.repeatable">Repeatable is required.</small>
             </div>
           </ng-template>
 

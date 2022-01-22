@@ -15,10 +15,10 @@ export class CurrentValueTableComponent implements OnInit {
   currentValues: Array<CurrentValue> = [];
   selectedCurrency: Currency | undefined;
   sources: Source[] = [];
-  selectedSource: Source| undefined;
+  selectedSource: Source;
 
   constructor(public currentValueService:CurrentValueService, private router: Router, public sourceService:SourceService, private currencyService: CurrencyService) {
-    //this.selectedSource = this.sourceService.getCurrentSource();
+    this.selectedSource = this.sourceService.getCurrentSource();
   }
 
   ngOnInit(): void {
