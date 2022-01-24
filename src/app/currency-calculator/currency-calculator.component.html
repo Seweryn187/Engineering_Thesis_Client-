@@ -1,0 +1,52 @@
+<div class="currency-calculator-container">
+  <label class="border-label" for="border">
+    <h1>Currency calculator</h1>
+  </label>
+
+    <div id="border" class="currency-calculator-border">
+      <div class="grid">
+        <div class="col-3">
+          <p-dropdown
+            id="source"
+            class="float-right"
+            [(ngModel)]="selectedSource"
+            [options]="sources"
+            optionLabel="name"
+            [placeholder]="selectedSource.name"
+            (onChange)="onDropdownChange($event)"
+          >
+          </p-dropdown>
+        </div>
+        <div class="col-12 text-right">
+          <p-inputNumber mode="currency" [readonly]="true" placeholder="EUR amount" [ngModel]='exchangedValues.get("EUR")' currency="EUR"></p-inputNumber>
+        </div>
+        <div class="col-12 text-right">
+          <p-inputNumber [readonly]="true" mode="currency" placeholder="USD amount" [ngModel]='exchangedValues.get("USD")' currency="USD"></p-inputNumber>
+        </div>
+        <div class="col-12 text-right">
+          <p-inputNumber [readonly]="true" mode="currency" placeholder="JPY amount" [ngModel]='exchangedValues.get("JPY")' currency="JPY"></p-inputNumber>
+        </div>
+        <div class="col-12 text-right">
+          <p-inputNumber [readonly]="true" mode="currency" placeholder="GBP amount" [ngModel]='exchangedValues.get("GBP")' currency="GBP"></p-inputNumber>
+        </div>
+        <div class="col-6">
+          <p-inputNumber [required]="true" mode="currency" [min]="0" placeholder="PLN amount" [(ngModel)]="plnAmount" currency="PLN"></p-inputNumber>
+        </div>
+        <div class="col-6 text-right">
+          <p-inputNumber [readonly]="true" mode="currency" placeholder="AUD amount" [ngModel]='exchangedValues.get("AUD")' currency="AUD"></p-inputNumber>
+        </div>
+        <div class="col-12 text-right">
+          <p-inputNumber [readonly]="true" mode="currency" placeholder="CHF amount" [ngModel]='exchangedValues.get("CHF")' currency="CHF"></p-inputNumber>
+        </div>
+        <div class="col-12 text-right">
+          <p-inputNumber [readonly]="true" mode="currency" placeholder="CAD amount" [ngModel]='exchangedValues.get("CAD")' currency="CAD"></p-inputNumber>
+        </div>
+        <div class="col-6">
+          <p-button label="Calculate" (onClick)="onButtonClick()"></p-button>
+        </div>
+        <div class="col-6 text-right">
+          <p-inputNumber [readonly]="true" mode="currency" placeholder="PLN amount" [ngModel]='exchangedValues.get("SEK")' currency="SEK"></p-inputNumber>
+        </div>
+      </div>
+    </div>
+</div>
