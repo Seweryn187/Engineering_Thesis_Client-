@@ -36,7 +36,6 @@ export class SignInComponent implements OnInit {
 
   onSubmit() {
     const {login, password} = this.signInForm.value;
-    console.log(this.signInForm.value);
     this.authenticationService.login(login, password).subscribe(
       data => {
         this.tokenStorage.saveToken(data.token);

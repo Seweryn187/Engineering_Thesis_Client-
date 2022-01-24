@@ -12,11 +12,16 @@ export class HistoricalValueService {
   historicalValues$: Observable<HistoricalValue> | undefined;
 
   constructor(private http: HttpClient) {
-    this.historicalValues$ =this.getHistoricalValuesByCurrencyAbbrAndSourceNameFromServer("EUR", "The National Bank of Poland");
+    this.historicalValues$ =this.getHistoricalValuesByCurrencyAbbrAndSourceNameBeforeMonthFromServer("EUR", "The National Bank of Poland");
   }
 
-  getHistoricalValuesByCurrencyAbbrAndSourceNameFromServer(abbr:string, name:string): Observable<HistoricalValue> {
-    let link = encodeURI(httpConstants.serverUrl + "/historical-value/" + abbr + "/" + name );
+  getHistoricalValuesByCurrencyAbbrAndSourceNameBeforeMonthFromServer(abbr:string, name:string): Observable<HistoricalValue> {
+    let link = encodeURI(httpConstants.serverUrl + "/historical-value/" + abbr + "/" + name + "/month" );
+    return this.http.get<HistoricalValue>(link, { 'headers': httpConstants.header });
+  }
+
+  getHistoricalValuesByCurrencyAbbrAndSourceNameBeforeYearFromServer(abbr:string, name:string): Observable<HistoricalValue> {
+    let link = encodeURI(httpConstants.serverUrl + "/historical-value/" + abbr + "/" + name + "/year" );
     return this.http.get<HistoricalValue>(link, { 'headers': httpConstants.header });
   }
 }

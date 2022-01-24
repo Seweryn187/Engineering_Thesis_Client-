@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
     name: '',
     abbr: ''
   };
-  currencies: Array<Currency> = [];
+  currencies: Currency[] = [];
   isCollapsed:boolean = true;
 
   constructor(public tokenStorageService: TokenStorageService, private router: Router,

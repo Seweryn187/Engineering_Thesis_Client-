@@ -33,7 +33,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-currentValue>
-        <tr [pSelectableRow]="currentValue">
+        <tr [pSelectableRow]="currentValue" [ngStyle]="{'color': (currentValue.bestPrice) ? 'green' : 'red'}">
             <td>{{currentValue.currency.abbr}}</td>
             <td>{{currentValue.currency.name | titlecase}}</td>
             <td>{{currentValue.bidValue/1000 + " PLN"}}</td>

@@ -29,14 +29,14 @@ export class UserProfileComponent implements OnInit {
   submitted:boolean = false;
   wrongEmail:boolean = false;
   editing:boolean = false;
-  userAlerts: Array<Alert> = [];
+  userAlerts: Alert[] = [];
   newAlert: Alert;
   alertDialog:boolean = false;
   submittedAlert:boolean = false;
   newAlertValue: number = 0;
   wrongNewAlertValue:boolean = false;
-  alertOptions: Array<Object> = [{ name: "Yes", value: true}, { name: "No", value: false}];
-  currencies: Array<Currency> = [];
+  alertOptions: Object[] = [{ name: "Yes", value: true}, { name: "No", value: false}];
+  currencies: Currency[] = [];
 
   constructor(private formBuilder: FormBuilder, public tokenStorageService: TokenStorageService, private router: Router,
               public userService: UserService, private http: HttpClient, private confirmationService: ConfirmationService,

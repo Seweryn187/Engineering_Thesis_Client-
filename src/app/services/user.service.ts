@@ -34,9 +34,7 @@ export class UserService {
   }
 
   deleteUserProfile() {
-    console.log(this.currentUser.email);
-    this.http.delete(httpConstants.serverUrl + "/user/delete/" + this.currentUser.email).subscribe((data:any) =>{
-      console.log(data);
+    this.http.delete(httpConstants.serverUrl + "/user/delete/" + this.currentUser.email).subscribe(() =>{
     });
 
     this.tokenStorageService.signOut();

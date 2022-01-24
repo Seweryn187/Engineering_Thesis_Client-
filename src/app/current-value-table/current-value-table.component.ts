@@ -12,7 +12,7 @@ import {CurrencyService} from "../services/currency.service";
 })
 export class CurrentValueTableComponent implements OnInit {
 
-  currentValues: Array<CurrentValue> = [];
+  currentValues: CurrentValue[] = [];
   selectedCurrency: Currency | undefined;
   sources: Source[] = [];
   selectedSource: Source;
@@ -28,7 +28,7 @@ export class CurrentValueTableComponent implements OnInit {
 
     this.currentValueService.getCurrentValues().subscribe((data:any) => {
       this.currentValues = data;
-    })
+    });
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
@@ -48,6 +48,9 @@ export class CurrentValueTableComponent implements OnInit {
     this.currentValueService.setCurrentValues(this.currentValueService.getCurrentValuesBySourceNameFromServer(event.value.name));
     this.currentValueService.getCurrentValues().subscribe((data:any) => {
       this.currentValues = data;
+      this.currentValues.sort(function(a, b) {
+        return a.id - b.id;
+      });
     });
   }
 

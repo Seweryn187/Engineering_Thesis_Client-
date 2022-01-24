@@ -6,7 +6,7 @@
       <label class="dropdown-label" for="source-dropdown">Source: </label>
       <p-dropdown
         id="source-dropdown"
-        class="archival-data-source-dropdown"
+        class="archival-data-dropdown"
         [(ngModel)]="selectedSource"
         [options]="sources"
         [placeholder]="selectedSource.name"
@@ -17,12 +17,24 @@
       <label class="dropdown-label" for="source-dropdown">Currency: </label>
       <p-dropdown
         id="currency-dropdown"
-        class="navbar-dropdown"
+        class="archival-data-dropdown"
         [(ngModel)]="selectedCurrency"
         [options]="currencies"
         [placeholder]="selectedCurrency.abbr"
         (onChange)="onCurrencyAbbrDropdownChange($event)"
         optionLabel="abbr">
+      </p-dropdown>
+
+      <label class="dropdown-label" for="range-dropdown">Range: </label>
+      <p-dropdown
+        id="range-dropdown"
+        class="archival-data-dropdown"
+        [(ngModel)]="range"
+        [options]="rangeList"
+        optionLabel="name"
+        optionValue="value"
+        placeholder="Month"
+        (onChange)="onRangeDropdownChange($event)">
       </p-dropdown>
     </div>
   </div>

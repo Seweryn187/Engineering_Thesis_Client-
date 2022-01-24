@@ -4,6 +4,7 @@ export interface Currency {
 }
 
 export interface CurrentValue {
+  id: number;
   bidValue: number;
   askValue: number;
   source: Source;
@@ -12,6 +13,7 @@ export interface CurrentValue {
   spread: number;
   bidIncrease: boolean;
   askIncrease: boolean;
+  bestPrice: boolean;
   currency: Currency;
 }
 
@@ -54,4 +56,9 @@ export interface Alert {
   alertValue: number;
   increase: boolean;
   repeatable: boolean;
+}
+
+export interface dateRange {
+  name: string;
+  value: string;
 }

@@ -32,6 +32,8 @@ import {CheckboxModule} from "primeng/checkbox";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
 import {InputNumberModule} from "primeng/inputnumber";
+import {StyleClassModule} from "primeng/styleclass";
+import { CurrencyCalculatorComponent } from './currency-calculator/currency-calculator.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import {InputNumberModule} from "primeng/inputnumber";
     SignUpComponent,
     ArchivalDataComponent,
     NotFoundPageComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    CurrencyCalculatorComponent
   ],
     imports: [
         BrowserModule,
@@ -68,7 +71,8 @@ import {InputNumberModule} from "primeng/inputnumber";
         CheckboxModule,
         MatFormFieldModule,
         MatSelectModule,
-        InputNumberModule
+        InputNumberModule,
+        StyleClassModule
     ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

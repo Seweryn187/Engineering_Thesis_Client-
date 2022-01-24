@@ -1,10 +1,9 @@
-import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, NavigationStart} from "@angular/router";
-import {Currency, HistoricalValue, Source} from "../models/models";
+import {Currency, dateRange, HistoricalValue, Source} from "../models/models";
 import {HistoricalValueService} from "../services/historical-value.service";
 import {CurrencyService} from "../services/currency.service";
 import {SourceService} from "../services/source.service";
-import {UIChart} from "primeng/chart";
 
 @Component({
   selector: 'app-archival-data',
@@ -19,12 +18,16 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
   chartOptions: any;
   abbr: string = '';
   source: string = '';
-  historicalValues: Array<HistoricalValue> = [];
+  historicalValues: HistoricalValue[] = [];
   selectedCurrency: Currency = {
     name: '',
     abbr: ''
   };
-  currencies: Array<Currency> = [];
+  currencies: Currency[] = [];
+  range: string = "";
+  rangeList: dateRange[] = [
+    {name: 'Month',value: 'month' },
+    {name: "Year", value: "year" }];
 
   constructor(private route: ActivatedRoute, private historicalValueService:HistoricalValueService, private currencyService: CurrencyService, public sourceService: SourceService, private router: Router) {
     this.resetChartData();
@@ -37,13 +40,7 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
         type: ''
       }
     });
-    this.historicalValueService.getHistoricalValuesByCurrencyAbbrAndSourceNameFromServer(this.abbr, this.source).subscribe(
-      (data: any) => {
-        this.historicalValues=data;
-        this.selectedCurrency = this.currencyService.getSelectedCurrency();
-        this.sourceService.setCurrentSource(this.historicalValues[0].source.name)
-        this.prepareChartData();
-      });
+    this.getMonthData();
 
     this.chartOptions = {
       legend: {
@@ -53,15 +50,7 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
 
     this.router.events.subscribe(event =>{
       if (event instanceof NavigationStart){
-        this.historicalValueService.getHistoricalValuesByCurrencyAbbrAndSourceNameFromServer(this.currencyService.getSelectedCurrency().abbr, this.sourceService.getCurrentSource().name).subscribe(
-          (data: any) => {
-            this.historicalValues=data;
-            this.resetChartData();
-            this.selectedCurrency = this.currencyService.getSelectedCurrency();
-            this.sourceService.setCurrentSource(this.historicalValues[0].source.name)
-            this.selectedSource = this.sourceService.getCurrentSource();
-            this.prepareChartData();
-          });
+        this.getMonthData();
       }
     })
   }
@@ -76,35 +65,30 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
     this.sourceService.getSources().subscribe((data:any) => {
       this.sources = data;
     });
-    console.log(this.historicalValues);
+
   }
 
   onSourceDropdownChange(event: any) {
     this.sourceService.setCurrentSource(event.value.name);
     this.router.navigate(['/home/archival-data',this.currencyService.getSelectedCurrency().abbr, this.sourceService.getCurrentSource().name])
-    this.historicalValueService.getHistoricalValuesByCurrencyAbbrAndSourceNameFromServer(this.currencyService.getSelectedCurrency().abbr, this.sourceService.getCurrentSource().name).subscribe(
-      (data: any) => {
-        this.historicalValues=data;
-        this.resetChartData();
-        this.selectedCurrency = this.historicalValues[0].currency;
-        this.sourceService.setCurrentSource(this.historicalValues[0].source.name)
-        this.selectedSource = this.sourceService.getCurrentSource();
-        this.prepareChartData();
-      });
+    this.getMonthData();
   }
 
   onCurrencyAbbrDropdownChange(event: any) {
     this.currencyService.setSelectedCurrency(event.value.abbr);
     this.router.navigate(['/home/archival-data', this.currencyService.getSelectedCurrency().abbr, this.sourceService.getCurrentSource().name])
-    this.historicalValueService.getHistoricalValuesByCurrencyAbbrAndSourceNameFromServer(this.currencyService.getSelectedCurrency().abbr, this.sourceService.getCurrentSource().name).subscribe(
-      (data: any) => {
-        this.historicalValues=data;
-        this.resetChartData();
-        this.sourceService.setCurrentSource(this.historicalValues[0].source.name)
-        this.prepareChartData();
-      });
+    this.getMonthData();
     this.selectedCurrency = this.currencyService.getSelectedCurrency();
     this.selectedSource = this.sourceService.getCurrentSource();
+  }
+
+  onRangeDropdownChange(event:any) {
+    if(event.value === "month"){
+      this.getMonthData();
+    }
+    if(event.value === "year"){
+      this.getYearData();
+    }
   }
 
   resetChartData() {
@@ -137,6 +121,27 @@ export class ArchivalDataComponent implements OnInit, AfterContentInit {
       this.chartData.datasets[1].data.push(value.meanAskValue/1000);
       this.chartData.datasets[2].data.push(value.meanValue/1000);
     });
+  }
+
+
+  getMonthData() {
+    this.historicalValueService.getHistoricalValuesByCurrencyAbbrAndSourceNameBeforeMonthFromServer(this.currencyService.getSelectedCurrency().abbr, this.sourceService.getCurrentSource().name).subscribe(
+      (data: any) => {
+        this.historicalValues=data;
+        this.resetChartData();
+        this.sourceService.setCurrentSource(this.historicalValues[0].source.name)
+        this.prepareChartData();
+      });
+  }
+
+  getYearData() {
+    this.historicalValueService.getHistoricalValuesByCurrencyAbbrAndSourceNameBeforeYearFromServer(this.currencyService.getSelectedCurrency().abbr, this.sourceService.getCurrentSource().name).subscribe(
+      (data: any) => {
+        this.historicalValues=data;
+        this.resetChartData();
+        this.sourceService.setCurrentSource(this.historicalValues[0].source.name)
+        this.prepareChartData();
+      });
   }
 
 }
