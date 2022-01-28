@@ -33,7 +33,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-currentValue>
-        <tr [pSelectableRow]="currentValue" [ngStyle]="{'color': (currentValue.bestPrice) ? 'green' : 'red'}">
+        <tr [pSelectableRow]="currentValue" [ngStyle]="{'color': (currentValue.bestPrice) ? 'green' : 'red'}" pTooltip="For {{currentValue.currency.abbr}} the best price has {{getBestSource(currentValue).source.name}}" tooltipPosition="top">
             <td>{{currentValue.currency.abbr}}</td>
             <td>{{currentValue.currency.name | titlecase}}</td>
             <td>{{currentValue.bidValue/1000 + " PLN"}}</td>

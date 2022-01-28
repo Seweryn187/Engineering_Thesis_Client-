@@ -34,6 +34,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {InputNumberModule} from "primeng/inputnumber";
 import {StyleClassModule} from "primeng/styleclass";
 import { CurrencyCalculatorComponent } from './currency-calculator/currency-calculator.component';
+import {TooltipModule} from "primeng/tooltip";
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { CurrencyCalculatorComponent } from './currency-calculator/currency-calc
         MatFormFieldModule,
         MatSelectModule,
         InputNumberModule,
-        StyleClassModule
+        StyleClassModule,
+        TooltipModule
     ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

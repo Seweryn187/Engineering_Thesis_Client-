@@ -37,6 +37,11 @@ export class CurrentValueService {
     return this.http.get<CurrentValue>(link, { 'headers': httpConstants.header });
   }
 
+  getCurrentValuesByBestPriceFromServer(): Observable<CurrentValue> {
+    let link = encodeURI(httpConstants.serverUrl + "/current-values/best-price");
+    return this.http.get<CurrentValue>(link, { 'headers': httpConstants.header });
+  }
+
   setCurrentValues(currentValues:Observable<CurrentValue>) {
     this.currentValues$ = currentValues;
   }

@@ -16,9 +16,33 @@ export class CurrentValueTableComponent implements OnInit {
   selectedCurrency: Currency | undefined;
   sources: Source[] = [];
   selectedSource: Source;
+  bestPriceCurrentValues: CurrentValue[] = [];
+  emptyCurrentValue: CurrentValue = {
+    id: 0,
+    bidValue: 0,
+    askValue: 0,
+    source: {
+      name: '',
+      type: ''
+    },
+    meanValue: 0,
+    date: new Date(),
+    spread: 0,
+    bidIncrease: false,
+    askIncrease: false,
+    bestPrice: true,
+    currency: {
+        name: '',
+        abbr: ''
+    }
+  };
 
   constructor(public currentValueService:CurrentValueService, private router: Router, public sourceService:SourceService, private currencyService: CurrencyService) {
     this.selectedSource = this.sourceService.getCurrentSource();
+    this.currentValueService.getCurrentValuesByBestPriceFromServer().subscribe((data:any) => {
+      this.bestPriceCurrentValues = data;
+      console.log(this.bestPriceCurrentValues);
+    });
   }
 
   ngOnInit(): void {
@@ -28,6 +52,9 @@ export class CurrentValueTableComponent implements OnInit {
 
     this.currentValueService.getCurrentValues().subscribe((data:any) => {
       this.currentValues = data;
+      this.currentValues.sort(function(a, b) {
+        return a.id - b.id;
+      });
     });
 
     this.router.events.subscribe(event => {
@@ -35,6 +62,7 @@ export class CurrentValueTableComponent implements OnInit {
         this.selectedSource = this.sourceService.getCurrentSource();
       }
     });
+
     this.selectedSource = this.sourceService.getCurrentSource();
   }
 
@@ -51,6 +79,13 @@ export class CurrentValueTableComponent implements OnInit {
       this.currentValues.sort(function(a, b) {
         return a.id - b.id;
       });
+    });
+  }
+
+  getBestSource(currentValue: CurrentValue): CurrentValue{
+    // @ts-ignore
+    return this.bestPriceCurrentValues.find(obj => {
+      return obj.currency.abbr === currentValue.currency.abbr;
     });
   }
 
